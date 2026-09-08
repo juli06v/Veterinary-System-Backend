@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: bh-core
-          image: bh-core:latest
-          imagePullPolicy: Never # Usar la imagen construida localmente
+          image: bh-core:1.0.0
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
           envFrom:

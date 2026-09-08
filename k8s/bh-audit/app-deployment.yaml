@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: bh-audit
-          image: bh-audit:latest
-          imagePullPolicy: Never # Usar la imagen construida localmente
+          image: bh-audit:1.0.0
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3001
           envFrom:
