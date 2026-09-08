@@ -18,6 +18,18 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3001
+          readinessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: 3001
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: 3001
+            initialDelaySeconds: 15
+            periodSeconds: 20
           envFrom:
             - configMapRef:
                 name: bh-audit-config

@@ -18,6 +18,18 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
           envFrom:
             - configMapRef:
                 name: bh-core-config
