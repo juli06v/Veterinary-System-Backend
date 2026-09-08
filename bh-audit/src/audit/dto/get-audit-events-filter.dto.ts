@@ -1,24 +1,28 @@
-import { IsOptional, IsString, IsUUID, IsIn, IsDateString, IsInt, Min, Max } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  IsUUID,
+  IsIn,
+  IsDateString,
+  IsInt,
+  Min,
+  Max,
+} from 'class-validator';
 import { Type } from 'class-transformer';
+import {
+  AUDIT_ACTIONS,
+  AuditAction,
+  AUDIT_ENTITY_TYPES,
+  AuditEntityType,
+  USER_ROLES,
+  UserRole,
+} from '../audit.constants';
 
 export class GetAuditEventsFilterDto {
   @IsOptional()
   @IsString()
-  @IsIn([
-    'REGISTRO_USUARIO', 'VERIFICACION_CORREO', 'REENVIO_CODIGO_VERIFICACION',
-    'APROBACION_CUENTA', 'RECHAZO_CUENTA',
-    'LOGIN_EXITOSO', 'LOGIN_FALLIDO', 'CREACION_CITA', 'CAMBIO_ESTADO_CITA',
-    'CANCELACION_CITA', 'FINALIZACION_CITA',
-    'CREACION_HISTORIAL_MEDICO', 'EDICION_HISTORIAL_MEDICO', 'REGISTRO_VACUNA',
-    'INICIO_HOSPITALIZACION', 'ALTA_HOSPITALIZACION', 'CREACION_FACTURA',
-    'ANULACION_FACTURA', 'AJUSTE_INVENTARIO', 'CREACION_INVENTARIO',
-    'ACTUALIZACION_INVENTARIO', 'DEDUCCION_STOCK_PRESCRIPCION',
-    'CREACION_SERVICIO', 'EDICION_SERVICIO', 'ACTUALIZACION_PRECIO_SERVICIO',
-    'DESACTIVACION_SERVICIO', 'ACTIVACION_SERVICIO',
-    'PAGO_CITA_REGISTRADO', 'SUSPENSION_USUARIO',
-    'REGISTRO_CLIENTE', 'ACTUALIZACION_CLIENTE',
-  ])
-  action?: string;
+  @IsIn(AUDIT_ACTIONS)
+  action?: AuditAction;
 
   @IsOptional()
   @IsUUID()
@@ -26,16 +30,13 @@ export class GetAuditEventsFilterDto {
 
   @IsOptional()
   @IsString()
-  @IsIn(['cliente', 'recepcionista', 'veterinario', 'administrador'])
-  userRole?: string;
+  @IsIn(USER_ROLES)
+  userRole?: UserRole;
 
   @IsOptional()
   @IsString()
-  @IsIn([
-    'User', 'Appointment', 'MedicalRecord', 'Vaccination', 'Hospitalization',
-    'Invoice', 'InventoryProduct', 'Service', 'Pet', 'Payment', 'Client',
-  ])
-  entityType?: string;
+  @IsIn(AUDIT_ENTITY_TYPES)
+  entityType?: AuditEntityType;
 
   @IsOptional()
   @IsDateString()
