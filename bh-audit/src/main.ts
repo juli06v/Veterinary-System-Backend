@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 /**
  * Punto de entrada principal de la aplicación.
@@ -8,7 +9,10 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.setGlobalPrefix('api/v1');
+  const port = process.env.PORT ?? 3001;
+  const apiPrefix = 'api/v1';
+
+  app.setGlobalPrefix(apiPrefix);
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -18,11 +22,11 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(3001);
+  app.useGlobalFilters(new HttpExceptionFilter());
 
-  console.log(
-    'bh-audit ejecutándose en http://localhost:3001/api/v1',
-  );
+  await app.listen(port);
+
+  console.log(`bh-audit ejecutándose en http://localhost:${port}/${apiPrefix}`);
 }
 
 bootstrap();
