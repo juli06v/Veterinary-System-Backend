@@ -18,6 +18,13 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3001
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
           readinessProbe:
             httpGet:
               path: /api/v1/health
